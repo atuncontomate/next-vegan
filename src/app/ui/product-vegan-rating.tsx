@@ -22,7 +22,7 @@ export default function ProductVeganRating({ productName }: Props) {
     return (<>
         
         <Image
-            className="max-w-[35%] self-center mb-4 rounded-sm"
+            className="max-w-[35%] self-center mb-4 rounded-sm hover:scale-98 ease-in duration-150"
             src={image.src}
             alt="Meme vegano"
             width={image.width}
