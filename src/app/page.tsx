@@ -5,7 +5,6 @@ import { useState } from "react";
 import { PRODUCTS } from "./data/products";
 import ProductVeganRating from "./ui/product-vegan-rating";
 
-
 const PRODUCT_NAME_SEARCH_PARAM = 'productName';
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
 
     const [inputValue, setInputValue] = useState('');
     const [suggestedProduct, setSuggestedProduct] = useState('');
-    const [submittedProduct, setSubmittedProduct] = useState(searchParams.get(PRODUCT_NAME_SEARCH_PARAM) || '');
 
     const handleSearch = (product: string) => {
         setInputValue(product);
@@ -34,7 +32,6 @@ export default function Home() {
             params.delete(PRODUCT_NAME_SEARCH_PARAM);
         }
 
-        setSubmittedProduct(inputValue);
         setInputValue('');
         setSuggestedProduct('')
 
@@ -43,9 +40,14 @@ export default function Home() {
 
     const handleProductSuggestion = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        setSubmittedProduct(suggestedProduct);
+
+        const params = new URLSearchParams(searchParams);
+        params.set(PRODUCT_NAME_SEARCH_PARAM, suggestedProduct.toLocaleLowerCase());
+        
         setInputValue('');
         setSuggestedProduct('');
+
+        replace(`${pathname}?${params.toString()}`)
     };
 
     const handleAutocompleteSearch = (event: { key: string; }) => {
@@ -57,7 +59,7 @@ export default function Home() {
             <p className="p-5">Añadir producto +</p>
         </Link>*/}
         <main className="flex flex-col w-[50%] gap-[18px] items-center sm:items-start">
-            { Boolean(submittedProduct) && <ProductVeganRating productName={submittedProduct}/> }
+            { Boolean(searchParams.get(PRODUCT_NAME_SEARCH_PARAM)) && <ProductVeganRating productName={searchParams.get(PRODUCT_NAME_SEARCH_PARAM) || ''}/> }
             <form className="flex w-full gap-[18px] items-center justify-center sm:items-start" onSubmit={handleSubmit}>
                 <input
                     onChange={(event) => handleSearch(event.target.value)}
