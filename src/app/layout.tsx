@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+//import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Mono } from 'next/font/google';
 import "./globals.css";
 
-const geistSans = Geist({
+/*const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -10,6 +11,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});*/
+
+const spaceMono = Space_Mono({ 
+  subsets: ['latin'], 
+  weight: '400',
 });
 
 export const metadata: Metadata = {
@@ -25,9 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={/*${geistSans.variable}*/ `${spaceMono.className} antialiased items-center justify-items-center min-h-screen p-5 sm:p-20`}
       >
         {children}
+
+        <footer className="mt-8 pt-4 border-t w-[45%] justify-items-center">
+            <p><em>go vegan (vamos venga)</em> 🌱</p>
+        </footer>
       </body>
     </html>
   );
