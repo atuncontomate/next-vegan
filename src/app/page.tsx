@@ -4,6 +4,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { PRODUCTS } from "./data/products";
 import ProductVeganRating from "./ui/product-vegan-rating";
+import Link from "next/link";
 
 const PRODUCT_NAME_SEARCH_PARAM = 'productName';
 
@@ -43,7 +44,7 @@ export default function Home() {
 
         const params = new URLSearchParams(searchParams);
         params.set(PRODUCT_NAME_SEARCH_PARAM, suggestedProduct.toLocaleLowerCase());
-        
+
         setInputValue('');
         setSuggestedProduct('');
 
@@ -55,9 +56,11 @@ export default function Home() {
     }
 
     return (<>
-        {/*<Link key="create" href="/create">
-            <p className="p-5">Añadir producto +</p>
-        </Link>*/}
+        <header className="pb-4">
+            <Link key="help" href="/ayuda">
+                <p className="hover:underline hover:cursor-pointer p-5">Ayuda: ¿Qué productos están disponibles?</p>
+            </Link>
+        </header>
         <main className="flex flex-col w-[50%] gap-[18px] items-center sm:items-start">
             { Boolean(searchParams.get(PRODUCT_NAME_SEARCH_PARAM)) && <ProductVeganRating productName={searchParams.get(PRODUCT_NAME_SEARCH_PARAM) || ''}/> }
             <form className="flex w-full gap-[18px] items-center justify-center sm:items-start" onSubmit={handleSubmit}>

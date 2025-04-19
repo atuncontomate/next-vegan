@@ -6,7 +6,7 @@ export const PRODUCTS = new Map<string, boolean>([
     ['azúcar', true],
     ['mantequilla', false],
     ['queso', false],
-    ['huevo', false],
+    ['huevos', false],
     ['atún', false],
     ['miel', false],
 ]);
