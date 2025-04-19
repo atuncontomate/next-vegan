@@ -1,13 +1,22 @@
 "use client";
-import ProductVeganRating from "./ui/product-vegan-rating";
+
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { PRODUCTS } from "./data/products";
+import ProductVeganRating from "./ui/product-vegan-rating";
+
+
+const PRODUCT_NAME_SEARCH_PARAM = 'productName';
 
 export default function Home() {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
+
     const [inputValue, setInputValue] = useState('');
     const [suggestedProduct, setSuggestedProduct] = useState('');
-    const [submittedProduct, setSubmittedProduct] = useState('');
-    
+    const [submittedProduct, setSubmittedProduct] = useState(searchParams.get(PRODUCT_NAME_SEARCH_PARAM) || '');
+
     const handleSearch = (product: string) => {
         setInputValue(product);
 
@@ -17,9 +26,19 @@ export default function Home() {
 
     const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+
+        const params = new URLSearchParams(searchParams);
+        if (inputValue) {
+            params.set(PRODUCT_NAME_SEARCH_PARAM, inputValue.toLocaleLowerCase());
+        } else {
+            params.delete(PRODUCT_NAME_SEARCH_PARAM);
+        }
+
         setSubmittedProduct(inputValue);
         setInputValue('');
-        setSuggestedProduct('');
+        setSuggestedProduct('')
+
+        replace(`${pathname}?${params.toString()}`)
     };
 
     const handleProductSuggestion = (event: { preventDefault: () => void; }) => {
