@@ -56,9 +56,9 @@ export default function Home() {
     }
 
     return (<>
-        <header className="pb-4">
+        <header className="pt-5 pb-10">
             <Link key="help" href="/ayuda">
-                <p className="hover:underline hover:cursor-pointer p-5">Ayuda: ¿Qué productos están disponibles?</p>
+                <p className="hover:underline hover:cursor-pointer">Ayuda: ¿Qué productos puedo consultar?</p>
             </Link>
         </header>
         <main className="flex flex-col w-[50%] gap-[18px] items-center sm:items-start">
@@ -73,7 +73,7 @@ export default function Home() {
                     value={inputValue}
                 />
                 <button
-                    className="hover:cursor-pointer h-10 rounded-2xl bg-green-400 px-4  text-sm font-medium text-white transition-colors hover:bg-green-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-green-800"
+                    className="hover:cursor-pointer h-10 rounded-2xl bg-green-400 px-4  text-sm font-medium text-white transition-colors hover:bg-green-500 focus-visible:outline-1 focus-visible:outline-green-400 active:bg-green-800"
                     type="submit"
                 >
                 ¿Es vegano?
